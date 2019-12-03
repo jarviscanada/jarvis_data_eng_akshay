@@ -43,4 +43,5 @@ disk_available: Amount of disk space available MB
 
 1) Improve not having duplicate code by using functions in my script files. 
 2) Automate some more of the setting up process
-3) Improved documentation and readme files
+3) Improved documentation and readme files, add architecture diagram
+
