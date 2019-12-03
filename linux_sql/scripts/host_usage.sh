@@ -30,10 +30,8 @@ insert into host_usage (timestamp, host_id, memory_free, cpu_idle, cpu_kernel, d
 values ('$timestamp', (SELECT id from host_info where hostname='$hostname'), $memory_free, $cpu_idle, $cpu_kernel, $disk_io, $disk_available);
 EOF
 )
-
 # verify statement
 echo $insert_statement
-
 
 export PGPASSWORD=$password
 

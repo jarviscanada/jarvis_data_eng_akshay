@@ -24,20 +24,15 @@ L2_cache=$(echo "$lscpu_out"  | egrep "L2 cache:" | awk '{print $3}' | xargs |se
 total_mem=$(grep MemTotal /proc/meminfo | awk '{print $2;}')
 timestamp=$(date +%F' '%T)
 
-
-
 insert_statement=$(cat <<-END
 insert into host_info (hostname, cpu_number, cpu_architecture, cpu_model, cpu_mhz, L2_cache, total_mem, "timestamp")
 values ('$hostname', $cpu_number, '$cpu_architecture', '$cpu_model', $cpu_mhz, $L2_cache, $total_mem, '$timestamp')
 END
 )
-
 # verify statement
 echo $insert_statement
 
 export PGPASSWORD=$psql_password
 psql -h $host -p $port -U $user -d $db_name -c "$insert_statement"
 
-
 exit 0
-
