@@ -3,6 +3,8 @@ The Linux Cluster Administration (LCA) team manages a Linux cluster of 10 nodes/
 
 The LCA team needs to record the hardware specifications of each node and monitor node resource usages (e.g. CPU/Memory) in realtime. Cluster Monitor Agent is an internal tool that monitors the cluster resources. The collected data is stored in an RDBMS database. LCA team will use the data to generate some reports for future resource planning purposes (e.g. add/remove servers).
 
+![GitHub Logo](/assets/architecture_diagram.png)
+
 
 ## Tables
 There are two tables, host_info and host_usage. host_info is for hardware specifications of each connected node while host_usage contains almost real time resource usage information (updated every minute).
