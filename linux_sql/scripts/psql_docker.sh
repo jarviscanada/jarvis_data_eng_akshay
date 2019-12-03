@@ -1,12 +1,9 @@
-su centos
-
-#psql docker docs https://hub.docker.com/_/postgres
-export PGPASSWORD='password'
-#run psql
-#docker run --rm --name jrvs-psql -e POSTGRES_PASSWORD=$PGPASSWORD -d -v pgdata:/var/lib/postgresql/data -p 5432:5432 postgres
-
 # script usage 
 # ./scripts/psql_docker.sh start|stop [password for database]
+
+su centos
+
+export PGPASSWORD='password'
 
 # function to run the container for psql
 rundocker () {
@@ -46,7 +43,6 @@ then
 		if [[ "$(docker ps -a -f name=jrvs-psql | wc -l)" == 2 ]];
 		then
 			docker stop jrvs-psql
-			docker container rm jrvs-psql
 		fi
 		# create the volume and container
 		docker volume create pgdata
@@ -65,7 +61,6 @@ elif [[ "$1" == "stop" && "$#" == 1 ]];
 then
 	#stop the container & the docker
 	systemctl status docker && docker stop jrvs-psql
-	systemctl status docker && systemctl stop docker
 	exit 0
 else
 	echo "Please enter the arguments in the following format 
