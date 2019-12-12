@@ -19,6 +19,7 @@ public interface LambdaStreamExc {
     Stream<String> createStrStream(String ... strings);
 
 
+
     /**
      * Convert all strings to uppercase
      * please use createStrStream
