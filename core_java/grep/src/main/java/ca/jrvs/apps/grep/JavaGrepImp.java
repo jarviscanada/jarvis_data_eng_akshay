@@ -2,14 +2,12 @@ package ca.jrvs.apps.grep;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import java.util.stream.Stream;
+
 
 public class JavaGrepImp implements JavaGrep {
 
@@ -35,22 +33,25 @@ public class JavaGrepImp implements JavaGrep {
 
   @Override
   public void process() throws IOException {
-//    matchedLines = []
-//    for file in listFilesRecursively(rootDir)
-//    for line in readLines(file)
-//    if containsPattern(line)
-//    matchedLines.add(line)
-//    writeToFile(matchedLines)
+    List<String> matchedLines = new ArrayList<>();
+    for (File file : listFiles(getRootPath())) {
+      for (String line : readLines(file)) {
+        if (containsPattern(line)) {
+          matchedLines.add(line);
+        }
+      }
+    }
+    writeToFile(matchedLines);
   }
 
   @Override
-  public List<File> listFiles(String rootDir)  {
+  public List<File> listFiles(String rootDir) {
     File rootFile = new File(rootDir);
     File[] list = rootFile.listFiles();
     List<File> filesList = new ArrayList<>();
 
 //    if (list==null){
-//      System.out.println("we here");
+//      System.out.println("No files under this folder");
 //      return null;
 //    }
 
@@ -73,7 +74,7 @@ public class JavaGrepImp implements JavaGrep {
       e.printStackTrace();
     }
     ArrayList<String> list = new ArrayList<String>();
-    while (s.hasNextLine()){
+    while (s.hasNextLine()) {
       list.add(s.nextLine());
     }
     s.close();
@@ -82,22 +83,26 @@ public class JavaGrepImp implements JavaGrep {
 
   @Override
   public boolean containsPattern(String line) {
-    return false;
+    return line.matches(getRegex());
   }
 
   @Override
   public void writeToFile(List<String> lines) throws IOException {
-
+    FileWriter writer = new FileWriter(outFile);
+    for (String str : lines) {
+      writer.write(str + System.lineSeparator());
+    }
+    writer.close();
   }
 
   @Override
   public String getRootPath() {
-    return null;
+    return rootPath;
   }
 
   @Override
   public void setRootPath(String rootPath) {
-
+    this.rootPath = rootPath;
   }
 
   @Override
