@@ -22,7 +22,6 @@ writeToFile(matchedLines)
 ```
 
 # Performance Issues
-(30-60 words)
 Generally, since the files are stored in memory, they can cause memory/resource issues.
 To overcome this, `JavaGrepLambdaImp.java` implements Lambda and Stream APIs in `listFiles()` and `readLines()` methods 
 that do not run the same issues. Java Streams supports functional-style operations on streams of elements, such as map-reduce 
