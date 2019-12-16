@@ -12,12 +12,14 @@ Search `.*IllegalArgumentException.*` pattern from `./grep/src` folder recursive
 Program arguments `.*IllegalArgumentException.* ./grep/src /tmp/grep.out`
 
 # Pseudocode
-```matchedLines = []
+```
+matchedLines = []
 for file in listFilesRecursively(rootDir)
   for line in readLines(file)
       if containsPattern(line)
         matchedLines.add(line)
-writeToFile(matchedLines)```
+writeToFile(matchedLines)
+```
 
 # Performance Issues
 (30-60 words)
