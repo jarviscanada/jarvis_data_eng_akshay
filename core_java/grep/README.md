@@ -1,7 +1,6 @@
 # Introduction
-This application replicates some of the core features of the linux GREP command. This app is built in Java. It uses recursion to go
-through all files in a given directory (even sub directories), and outputs any lines from files matching the input pattern into a temprary
-folder. I learned Java I/O, lambda, streams, how to use intellij IDE to my advantage, how to modularize code into functions.
+This application replicates some of the core features of the Linux GREP command. This app is built in Java. It uses recursion to go
+through all files in a given directory (even sub directories), and outputs any lines from files matching the input pattern into a temporary folder. I learned Java I/O, lambda, streams, how to use intellij IDE to my advantage, how to modularize code into functions.
 
 # Usage
 
@@ -33,3 +32,4 @@ they are from etc.
 2. If there are multiple instances of the exact same match, then instead of duplicating the lines, I would just show which line numbers
 they are from
 3. Make a GUI to run this app rather than having to run it though an IDE
+4. Better logging in case of exceptions. Rather than just printing to the terminal, log it properly.
