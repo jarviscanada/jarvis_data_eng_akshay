@@ -45,7 +45,6 @@ public class JavaGrepLambdaImp extends JavaGrepImp {
     List<String> listLines = new ArrayList<>();
     //read file into stream, try-with-resources
     try (Stream<String> stream = Files.lines(Paths.get(String.valueOf(inputFile)))) {
-      System.out.println(String.valueOf(inputFile));
       listLines=stream.collect(Collectors.toList());
 
     } catch (IOException e) {
