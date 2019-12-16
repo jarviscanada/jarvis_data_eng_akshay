@@ -31,5 +31,5 @@ transformations on collections without actually storing the data. These are proc
 they are from etc.
 2. If there are multiple instances of the exact same match, then instead of duplicating the lines, I would just show which line numbers
 they are from
-3. Make a GUI to run this app rather than having to run it though an IDE
+3. Make a GUI to run this app rather than having to run it though an IDE.
 4. Better logging in case of exceptions. Rather than just printing to the terminal, log it properly.
