@@ -23,10 +23,6 @@ public class TwitterApiTest {
     OAuthConsumer consumer = new CommonsHttpOAuthConsumer(CONSUMER_KEY,
         CONSUMER_SECRET);
     consumer.setTokenWithSecret(ACCESS_TOKEN, TOKEN_SECRET);
-    System.out.println(CONSUMER_KEY);
-    System.out.println(CONSUMER_SECRET);
-    System.out.println(ACCESS_TOKEN);
-    System.out.println(TOKEN_SECRET);
 
     // create an HTTP GET request
     String status = "today is a good day";
