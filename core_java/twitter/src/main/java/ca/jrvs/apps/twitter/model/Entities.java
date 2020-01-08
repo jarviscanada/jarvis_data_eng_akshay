@@ -10,7 +10,7 @@ public class Entities {
   @JsonProperty("hashtags")
   private Hashtag[] hashtags;
   @JsonProperty("user_mentions")
-  private Mention[] mentions;
+  private UserMention[] mentions;
 
 
   public Hashtag[] getHashtags() {
@@ -21,11 +21,11 @@ public class Entities {
     this.hashtags = hashtags;
   }
 
-  public Mention[] getMentions() {
+  public UserMention[] getMentions() {
     return mentions;
   }
 
-  public void setMentions(Mention[] mentions) {
+  public void setMentions(UserMention[] mentions) {
     this.mentions = mentions;
   }
 }

@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 
 @JsonInclude(Include.NON_NULL)
 @JsonPropertyOrder({
@@ -19,7 +21,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "favorited",
     "retweeted"
 })
-
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Tweet {
 
   @JsonProperty("created_at")

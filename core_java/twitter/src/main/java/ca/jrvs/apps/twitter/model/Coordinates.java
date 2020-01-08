@@ -5,16 +5,16 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class Coordinates {
 
   @JsonProperty("coordinates")
-  private float[] coordinates;
+  private double[] coordinates;
   @JsonProperty("type")
   private String type;
 
 
-  public float[] getCoordinates() {
+  public double[] getCoordinates() {
     return coordinates;
   }
 
-  public void setCoordinates(float[] coordinates) {
+  public void setCoordinates(double[] coordinates) {
     this.coordinates = coordinates;
   }
 
