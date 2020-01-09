@@ -32,16 +32,16 @@ public class TwitterDaoUnitTest {
   @Before
   public void setup() throws Exception{
     String tweetJsonStr = "{\n" +
-        "  \"created_at\" : \"Thu Dec 19 21:12:46 +0000 2019\",\n" +
+        "  \"created_at\" : \"Thu Jan 2 23:16:41 +0000 2020\",\n" +
         "  \"id\" : 7848741081207770622,\n" +
         "  \"id_str\" : \"7848741081207770622\",\n" +
-        "  \"text\" : \"Test main cli2\",\n" +
+        "  \"text\" : \"Testing this JSON\",\n" +
         "  \"entities\" : {\n" +
         "    \"hashtags\" : [ ],\n" +
         "    \"user_mentions\" : [ ]\n" +
         "  },\n" +
         "  \"coordinates\" : {\n" +
-        "    \"coordinates\" : [ 145.0, 18.0 ],\n" +
+        "    \"coordinates\" : [ 15.0, 48.0 ],\n" +
         "    \"type\" : \"Point\"\n" +
         "  },\n" +
         "  \"retweet_count\" : 0,\n" +
