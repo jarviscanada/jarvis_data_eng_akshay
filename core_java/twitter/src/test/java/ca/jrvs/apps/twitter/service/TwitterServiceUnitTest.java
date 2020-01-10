@@ -82,13 +82,13 @@ public class TwitterServiceUnitTest {
     when(dao.findById(any())).thenReturn(new Tweet());
     try {
       //is contains character
-      service.showTweet("this is a wrong tweet id",null);
+      service.showTweet("this is a wrong tweet id");
       fail();
     } catch (IllegalArgumentException e){
       assertTrue(true);
     }
 
-    Tweet tweet = service.showTweet("7848741081207770622",null);
+    Tweet tweet = service.showTweet("12345");
     assertNotNull(tweet);
   }
 

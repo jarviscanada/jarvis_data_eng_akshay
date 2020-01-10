@@ -110,7 +110,6 @@ public class Tweet {
     this.retweetCount = retweetCount;
   }
 
-  @JsonProperty("favorite_count")
   public Long getFavoriteCount() {
     return favoriteCount;
   }

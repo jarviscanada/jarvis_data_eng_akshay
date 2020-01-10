@@ -24,9 +24,8 @@ public class TwitterService implements Service {
   }
 
   @Override
-  public Tweet showTweet(String id, String[] fields) {
+  public Tweet showTweet(String id) {
     validateId(id);
-
     return (Tweet) dao.findById(id);
   }
 
@@ -56,7 +55,7 @@ public class TwitterService implements Service {
 
   private void validateId(String id) {
     if (!id.matches("^\\d+$")) {
-      throw new RuntimeException("Invaild Tweet Id");
+      throw new RuntimeException("Invalid Tweet Id");
     }
   }
 }

@@ -6,7 +6,6 @@ import static org.junit.Assert.assertNotNull;
 import ca.jrvs.apps.twitter.dao.TwitterDao;
 import ca.jrvs.apps.twitter.dao.helper.HttpHelper;
 import ca.jrvs.apps.twitter.dao.helper.TwitterHttpHelper;
-import ca.jrvs.apps.twitter.example.JsonParser;
 import ca.jrvs.apps.twitter.model.Tweet;
 import ca.jrvs.apps.twitter.util.TweetUtil;
 import java.util.ArrayList;
@@ -40,24 +39,21 @@ public class TwitterServiceIntTest {
   public void postTweets() throws Exception {
 
     String text;
-    for (int i = 0; i < 2; i++) {
+    for (int i = 0; i < 3; i++) {
       text = "akshay #yolo is a great motto " + System.currentTimeMillis();
       Tweet newTweet = TweetUtil.buildTweet(text, 1d, -1d);
       Tweet createdTweet = twitterService.postTweet(newTweet);
       assertEquals(createdTweet.getText(), newTweet.getText());
       listOfIds.add(createdTweet.getIdStr());
-      System.out.println(JsonParser.toJson(createdTweet, true, true));
-
     }
   }
 
   @Test
   public void showTweets() throws Exception {
     for (String id : listOfIds) {
-      Tweet returnedTweet = twitterService.showTweet(id, null);
+      Tweet returnedTweet = twitterService.showTweet(id);
       assertNotNull(returnedTweet);
       assertEquals(returnedTweet.getIdStr(), id);
-      System.out.println(JsonParser.toJson(returnedTweet, true, true));
     }
   }
 
@@ -66,7 +62,6 @@ public class TwitterServiceIntTest {
     List<Tweet> deletedTweets = twitterService.deleteTweets(listOfIds.toArray(new String[0]));
     for (int i = 0; i < listOfIds.size(); i++) {
       assertEquals(deletedTweets.get(i).getIdStr(), listOfIds.get(i));
-      System.out.println(JsonParser.toJson(deletedTweets.get(i), true, true));
     }
   }
 
