@@ -11,9 +11,10 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.util.EntityUtils;
 import org.springframework.http.HttpMethod;
+import org.springframework.stereotype.Component;
 
+@Component
 public class TwitterHttpHelper  implements HttpHelper {
 
   private OAuthConsumer consumer;
@@ -23,6 +24,19 @@ public class TwitterHttpHelper  implements HttpHelper {
   consumer = new CommonsHttpOAuthConsumer(consumerKey,consumerSecret);
   consumer.setTokenWithSecret(accessToken,tokenSecret);
   httpClient = new DefaultHttpClient();
+  }
+
+  public TwitterHttpHelper() {
+    String consumerKey = System.getenv("CONSUMER_KEY");
+    String consumerSecret = System.getenv("CONSUMER_SECRET");
+    String accessToken = System.getenv("ACCESS_TOKEN");
+    String tokenSecret = System.getenv("TOKEN_SECRET");
+
+    consumer = new CommonsHttpOAuthConsumer(consumerKey, consumerSecret);
+    consumer.setTokenWithSecret(accessToken, tokenSecret);
+
+    // Default is a single connection
+    httpClient = new DefaultHttpClient();
   }
 
 
