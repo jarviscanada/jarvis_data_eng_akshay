@@ -1,9 +1,6 @@
 # Introduction
-(50-100 words)
 The Java Twitter App is an command line application that demonstrates the use of Create, Read and Delete Tweets. It connects to Twitter REST API using the authentication tool OAuth 1.0. Post and Get request were used with the twitter API, and the data was processed using DAO design pattern. I learned how to use the Model-View-Controller design architecture (minus the "View" bit), how to implement and test an app using a modular appraoch, and how to manage dependencies. I also learned a use case for Spring, as we eventually implemented the app with Springboot.
 # Design
-- UML diagram
-- explain each component(app/main, controller, service, DAO) (30-50 words each)
 TwitterHttpHelper
 This class is oart of the DAO layer, and is a dependency for the TwitterDAO class. It's function is to execute HTTP requests. It implements HttpHelper interface
 TwitterDao
@@ -17,8 +14,6 @@ TwitterCLIApp
 This class is part of the application layer. It parses the user input and calls the corresponding method in TwitterController. It also sets up dependencies and envirnment variables, 
 
 # Quick Start
-- how to package your app using mvn
-- how to run your app and explain option
 This app requires you to have a twitter dev account setup. The credentials CONSUMER_KEY
 CONSUMER_SECRET
 ACCESS_TOKEN
@@ -35,7 +30,7 @@ Delete a Tweet
 Usage: `TwitterCLIApp delete "ids" where"ids" is a string that stores a list of id separated by commas.
 
 # Model
-Talk about tweet model
+
 The Tweet model in this porject is a simplified version of the full Tweet model. We implemented Coordinates, Entities, Hashtags, and UserMentions objects as part of thisTweet object. Below is an example of the simplified Tweet Object.
 //Simplified Tweet Object 
 { "created_at":"Mon Feb 18 21:24:39 +0000 2019", 
