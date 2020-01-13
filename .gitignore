@@ -1,2 +1,3 @@
 intellij-java-google-style.xml
-/home/centos/dev/jarvis_data_eng_akshay/core_java/grep/target/
+**/target/
+**/.idea
