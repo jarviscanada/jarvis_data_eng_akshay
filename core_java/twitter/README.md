@@ -28,13 +28,13 @@ need to be setup as environmental variables either by adding them to the .bashrc
 `java -jar target/ java_apps-1.0.0-SNAPSHOT.jar [action] [option]`, where action and option are demonstrated below:
 
 Post a Tweet
-`Usage: TwitterCLIApp post "Text" "Longitude:Latitude"`
+Usage: `TwitterCLIApp post "Text" "Longitude:Latitude"`
 
 Show a Tweet
-`Usage: `TwitterCLIApp show "id"`
+Usage: `TwitterCLIApp show "id"`
 
 Delete Tweet(s)
-`Usage: `TwitterCLIApp delete "ids"` where"ids" is a string that stores a list of ids separated by commas
+Usage: `TwitterCLIApp delete "ids"` where"ids" is a string that stores a list of ids separated by commas
 
 # Model
 
