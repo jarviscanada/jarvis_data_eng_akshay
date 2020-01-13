@@ -39,7 +39,7 @@ Usage: `TwitterCLIApp delete "ids"` where"ids" is a string that stores a list of
 # Model
 
 The Tweet model in this project is a simplified version of the full Tweet model. We implemented Coordinates, Entities, Hashtags, and UserMentions objects as part of thisTweet object. Below is an example of the simplified Tweet Object.
-//Simplified Tweet Object 
+ 
 ```
 { "created_at":"Mon Feb 18 21:24:39 +0000 2019", 
 "id":1097607853932564480, 
