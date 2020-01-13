@@ -27,13 +27,13 @@ TOKEN_SECRET
 need to be setup as environmental variables either by adding them to the .bashrc file, or exporting them manually each time you start a new terminal instance. The application can be run through an IDE where maven can be taken care of, or you can navigate to the twitter folder, and package the project by running mvn package, which will build a .jar file. Then you can run:
 `java -jar target/ java_apps-1.0.0-SNAPSHOT.jar [action] [option]`, where action and option are demonstrated below:
 
-Post a Tweet
+#### Post a Tweet
 Usage: `TwitterCLIApp post "Text" "Longitude:Latitude"`
 
-Show a Tweet
+#### Show a Tweet
 Usage: `TwitterCLIApp show "id"`
 
-Delete Tweet(s)
+#### Delete Tweet(s)
 Usage: `TwitterCLIApp delete "ids"` where"ids" is a string that stores a list of ids separated by commas
 
 # Model
