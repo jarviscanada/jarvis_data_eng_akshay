@@ -18,7 +18,6 @@ public class Hashtag {
   private int[] indices;
 
 
-
   public int[] getIndices() {
     return indices;
   }

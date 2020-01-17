@@ -12,7 +12,6 @@ import ca.jrvs.apps.twitter.service.TwitterService;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 
 //@Configuration
 public class TwitterCLIBean {
@@ -24,22 +23,22 @@ public class TwitterCLIBean {
   }
 
   @Bean
-  public TwitterCLIApp twitterCLIApp(Controller controller){
+  public TwitterCLIApp twitterCLIApp(Controller controller) {
     return new TwitterCLIApp(controller);
   }
 
   @Bean
-  public Controller controller(Service service){
+  public Controller controller(Service service) {
     return new TwitterController(service);
   }
 
   @Bean
-  public Service service(CrdDao dao){
+  public Service service(CrdDao dao) {
     return new TwitterService(dao);
   }
 
   @Bean
-  public CrdDao crdDao(HttpHelper httpHelper){
+  public CrdDao crdDao(HttpHelper httpHelper) {
     return new TwitterDao(httpHelper);
   }
 

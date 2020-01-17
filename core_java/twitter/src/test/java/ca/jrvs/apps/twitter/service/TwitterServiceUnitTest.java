@@ -1,9 +1,17 @@
 package ca.jrvs.apps.twitter.service;
 
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
+
 import ca.jrvs.apps.twitter.dao.CrdDao;
 import ca.jrvs.apps.twitter.model.Tweet;
 import ca.jrvs.apps.twitter.util.JsonUtil;
 import ca.jrvs.apps.twitter.util.TweetUtil;
+import java.io.IOException;
+import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,17 +19,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import java.io.IOException;
-import java.util.List;
-
-import static org.mockito.ArgumentMatchers.*;
-import static org.mockito.Mockito.when;
-
-
-import static org.junit.Assert.*;
-
 @RunWith(MockitoJUnitRunner.class)
 public class TwitterServiceUnitTest {
+
   @Mock
   CrdDao dao;
 
@@ -29,8 +29,9 @@ public class TwitterServiceUnitTest {
   TwitterService service;
 
   Tweet expectedTweet;
+
   @Before
-  public void setup() throws Exception{
+  public void setup() throws Exception {
     String tweetJsonStr = "{\n" +
         "  \"created_at\" : \"Thu Jan 2 23:16:41 +0000 2020\",\n" +
         "  \"id\" : 7848741081207770622,\n" +
@@ -55,7 +56,7 @@ public class TwitterServiceUnitTest {
 
     try {
       expectedTweet = JsonUtil.toObjectFromJson(tweetJsonStr, Tweet.class);
-    }catch (IOException e){
+    } catch (IOException e) {
       throw new IOException();
     }
   }
@@ -68,7 +69,7 @@ public class TwitterServiceUnitTest {
       //lon is exceeding the limit
       service.postTweet(TweetUtil.buildTweet("Mockito test", 263.0, 1d));
       fail();
-    }catch (IllegalArgumentException e) {
+    } catch (IllegalArgumentException e) {
       assertTrue(true);
     }
 
@@ -84,7 +85,7 @@ public class TwitterServiceUnitTest {
       //is contains character
       service.showTweet("this is a wrong tweet id");
       fail();
-    } catch (IllegalArgumentException e){
+    } catch (IllegalArgumentException e) {
       assertTrue(true);
     }
 
@@ -96,16 +97,16 @@ public class TwitterServiceUnitTest {
   public void deleteTweets() {
     when(dao.deleteById(any())).thenReturn(new Tweet());
     try {
-      String[] ids = {"this is a wrong tweet id","7848741081207770621"};
+      String[] ids = {"this is a wrong tweet id", "7848741081207770621"};
       service.deleteTweets(ids);
       fail();
-    }catch (IllegalArgumentException e) {
+    } catch (IllegalArgumentException e) {
       assertTrue(true);
     }
 
-    String[] ids = {"7848741081207770622","7848741081207770621"};
+    String[] ids = {"7848741081207770622", "7848741081207770621"};
     List<Tweet> list = service.deleteTweets(ids);
-    for(Tweet tweet : list) {
+    for (Tweet tweet : list) {
       assertNotNull(tweet);
     }
   }

@@ -1,6 +1,8 @@
 package ca.jrvs.apps.twitter.dao;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import ca.jrvs.apps.twitter.dao.helper.HttpHelper;
 import ca.jrvs.apps.twitter.dao.helper.TwitterHttpHelper;
@@ -29,11 +31,13 @@ public class TwitterDaoIntTest {
         TOKEN_SECRET);
     dao = new TwitterDao(httpHelper);
   }
+
   @Before
   public void create() {
     System.out.println("Create");
     String hashTag = "YOLO";
-    String text = "@akshay please #YOLO to the full extent " + hashTag +""+System.currentTimeMillis();
+    String text =
+        "@akshay please #YOLO to the full extent " + hashTag + "" + System.currentTimeMillis();
     double lat = 1d;
     double lon = 20d;
     Tweet postTweet = TweetUtil.buildTweet(text, lon, lat);
@@ -59,8 +63,10 @@ public class TwitterDaoIntTest {
     System.out.println(JsonUtil.toJson(foundTweet, true, false));
 
     assertEquals(tweet.getText(), foundTweet.getText());
-    assertEquals(foundTweet.getCoordinates().getCoordinates()[0], tweet.getCoordinates().getCoordinates()[0], 0);
-    assertEquals(foundTweet.getCoordinates().getCoordinates()[1], tweet.getCoordinates().getCoordinates()[1], 0);
+    assertEquals(foundTweet.getCoordinates().getCoordinates()[0],
+        tweet.getCoordinates().getCoordinates()[0], 0);
+    assertEquals(foundTweet.getCoordinates().getCoordinates()[1],
+        tweet.getCoordinates().getCoordinates()[1], 0);
     assertEquals(tweetId, foundTweet.getIdStr());
 
   }
@@ -72,8 +78,10 @@ public class TwitterDaoIntTest {
     System.out.println(JsonUtil.toJson(deletedTweet, true, false));
 
     assertEquals(tweet.getText(), deletedTweet.getText());
-    assertEquals(deletedTweet.getCoordinates().getCoordinates()[0], tweet.getCoordinates().getCoordinates()[0], 0);
-    assertEquals(deletedTweet.getCoordinates().getCoordinates()[1], tweet.getCoordinates().getCoordinates()[1], 0);
+    assertEquals(deletedTweet.getCoordinates().getCoordinates()[0],
+        tweet.getCoordinates().getCoordinates()[0], 0);
+    assertEquals(deletedTweet.getCoordinates().getCoordinates()[1],
+        tweet.getCoordinates().getCoordinates()[1], 0);
     assertEquals(tweetId, deletedTweet.getIdStr());
 
   }

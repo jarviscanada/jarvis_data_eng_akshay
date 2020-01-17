@@ -50,11 +50,6 @@ public class JavaGrepImp implements JavaGrep {
     File[] list = rootFile.listFiles();
     List<File> filesList = new ArrayList<>();
 
-//    if (list==null){
-//      System.out.println("No files under this folder");
-//      return null;
-//    }
-
     for (File file : list) {
       if (file.isFile()) {
         filesList.add(file);

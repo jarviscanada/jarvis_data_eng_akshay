@@ -39,7 +39,8 @@ public class TwitterControllerIntTest {
   public void postTweets() throws Exception {
     String[] args;
     for (int i = 0; i < 3; i++) {
-      args = new String[]{"post", "Remember to #YOLO Sample tweet" + System.currentTimeMillis(), "-2.0:8.0"};
+      args = new String[]{"post", "Remember to #YOLO Sample tweet" + System.currentTimeMillis(),
+          "-2.0:8.0"};
       Tweet createdTweet = controller.postTweet(args);
       assertNotNull(createdTweet);
       ids.add(createdTweet.getIdStr());

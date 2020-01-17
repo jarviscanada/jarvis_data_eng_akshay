@@ -15,15 +15,16 @@ import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;
 
 @Component
-public class TwitterHttpHelper  implements HttpHelper {
+public class TwitterHttpHelper implements HttpHelper {
 
   private OAuthConsumer consumer;
   private HttpClient httpClient;
 
-  public TwitterHttpHelper(String consumerKey, String consumerSecret, String accessToken,String tokenSecret) {
-  consumer = new CommonsHttpOAuthConsumer(consumerKey,consumerSecret);
-  consumer.setTokenWithSecret(accessToken,tokenSecret);
-  httpClient = new DefaultHttpClient();
+  public TwitterHttpHelper(String consumerKey, String consumerSecret, String accessToken,
+      String tokenSecret) {
+    consumer = new CommonsHttpOAuthConsumer(consumerKey, consumerSecret);
+    consumer.setTokenWithSecret(accessToken, tokenSecret);
+    httpClient = new DefaultHttpClient();
   }
 
   public TwitterHttpHelper() {
@@ -45,9 +46,9 @@ public class TwitterHttpHelper  implements HttpHelper {
     try {
       return executeHttpRequest(HttpMethod.POST, uri, null);
     } catch (OAuthException e) {
-      throw new RuntimeException("Failed to execute httpPost",e);
+      throw new RuntimeException("Failed to execute httpPost", e);
     } catch (IOException e) {
-      throw new RuntimeException("Failed to execute httpPost",e);
+      throw new RuntimeException("Failed to execute httpPost", e);
     }
   }
 
@@ -56,31 +57,30 @@ public class TwitterHttpHelper  implements HttpHelper {
     try {
       return executeHttpRequest(HttpMethod.GET, uri, null);
     } catch (OAuthException e) {
-      throw new RuntimeException("Failed to execute httpPost",e);
+      throw new RuntimeException("Failed to execute httpPost", e);
     } catch (IOException e) {
-      throw new RuntimeException("Failed to execute httpPost",e);
+      throw new RuntimeException("Failed to execute httpPost", e);
     }
   }
 
   private HttpResponse executeHttpRequest(HttpMethod method, URI uri, StringEntity stringEntity)
       throws OAuthException, IOException {
-    if (method == HttpMethod.POST){
+    if (method == HttpMethod.POST) {
       HttpPost request = new HttpPost(uri);
-      if (stringEntity != null){
+      if (stringEntity != null) {
         request.setEntity(stringEntity);
       }
       consumer.sign(request);
       return httpClient.execute(request);
-    }
-    else if (method == HttpMethod.GET){
+    } else if (method == HttpMethod.GET) {
       HttpGet request = new HttpGet(uri);
       consumer.sign(request);
       return httpClient.execute(request);
+    } else {
+      throw new IllegalArgumentException("Unknown HTTP method:" + method.name());
     }
-    else throw new IllegalArgumentException("Unknown HTTP method:" + method.name());
 
   }
-
 
 
 }
