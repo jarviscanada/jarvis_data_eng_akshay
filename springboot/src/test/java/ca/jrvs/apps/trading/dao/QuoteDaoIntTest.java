@@ -1,12 +1,7 @@
 package ca.jrvs.apps.trading.dao;
 
-import static org.junit.Assert.*;
-
 import ca.jrvs.apps.trading.TestConfig;
 import ca.jrvs.apps.trading.model.domain.Quote;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -16,6 +11,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+import static org.junit.Assert.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = {TestConfig.class})
@@ -28,7 +29,7 @@ public class QuoteDaoIntTest {
     private Quote savedQuote;
 
 
-@Before
+    @Before
     public void insertOne() {
         savedQuote = new Quote();
         savedQuote.setAskPrice(6d);
@@ -39,8 +40,9 @@ public class QuoteDaoIntTest {
         savedQuote.setLastPrice(6.1d);
         quoteDao.save(savedQuote);
     }
-@Before
-    public void insertTwo(){
+
+    @Before
+    public void insertTwo() {
         List<Quote> quotes = new ArrayList<>();
         Quote quote1 = new Quote();
         quote1.setAskPrice(4d);
@@ -62,7 +64,6 @@ public class QuoteDaoIntTest {
     }
 
 
-
     @Test
     public void findById() {
         String ticker = savedQuote.getId();
@@ -76,18 +77,19 @@ public class QuoteDaoIntTest {
     }
 
     @Test
-    public void existsById(){
+    public void existsById() {
         assertTrue(quoteDao.existsById(savedQuote.getId()));
         assertFalse(quoteDao.existsById("FAKE"));
     }
+
     @After
-    public void deleteById(){
+    public void deleteById() {
         quoteDao.deleteById(savedQuote.getId());
-        try{
+        try {
             quoteDao.existsById("SDG");
         } catch (NullPointerException e) {
             assertTrue(true);
-        } catch (Exception e){
+        } catch (Exception e) {
             Assert.fail();
         }
     }

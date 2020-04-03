@@ -158,6 +158,7 @@ public class IexQuote {
     public void setCompanyName(String companyName) {
         this.companyName = companyName;
     }
+
     @JsonProperty("primaryExchange")
     public String getPrimaryExchange() {
         return primaryExchange;

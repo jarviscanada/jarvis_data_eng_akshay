@@ -1,6 +1,5 @@
 package ca.jrvs.apps.trading.dao;
 
-import ca.jrvs.apps.trading.dao.MarketDataDao;
 import ca.jrvs.apps.trading.model.config.MarketDataConfig;
 import ca.jrvs.apps.trading.model.domain.IexQuote;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
@@ -29,7 +28,6 @@ public class MarketDataDaoIntTest {
         marketDataConfig.setHost("https://cloud.iexapis.com/v1/");
         marketDataConfig.setToken(System.getenv("IEX_PUB_TOKEN"));
         System.out.println(System.getenv("IEX_PUB_TOKEN"));
-
 
         dao = new MarketDataDao(cm, marketDataConfig);
 
@@ -61,7 +59,6 @@ public class MarketDataDaoIntTest {
         IexQuote iexQuote = dao.findById(ticker).get();
         Assert.assertEquals(ticker, iexQuote.getSymbol());
     }
-
 
 
 }

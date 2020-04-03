@@ -1,9 +1,9 @@
 package ca.jrvs.apps.trading.dao;
 
+import ca.jrvs.apps.trading.model.config.MarketDataConfig;
 import ca.jrvs.apps.trading.model.domain.IexQuote;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
@@ -16,10 +16,8 @@ import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import ca.jrvs.apps.trading.model.config.MarketDataConfig;
 import org.springframework.dao.DataRetrievalFailureException;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.data.repository.core.CrudMethods;
 import org.springframework.stereotype.Repository;
 
 import java.io.IOException;
@@ -28,10 +26,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-import static java.net.HttpURLConnection.HTTP_OK;
 
 @Repository
-public class MarketDataDao implements CrudRepository<IexQuote,String> {
+public class MarketDataDao implements CrudRepository<IexQuote, String> {
     private static final String IEX_BATCH_PATH = "/stock/market/batch?symbols=%s&types=quote&token=";
     private String IEX_BATCH_URL;
 
@@ -39,7 +36,6 @@ public class MarketDataDao implements CrudRepository<IexQuote,String> {
     private HttpClientConnectionManager httpClientConnectionManager;
 
     /**
-     *
      * @param httpClientConnectionManager
      * @param marketDataConfig
      */
@@ -77,17 +73,6 @@ public class MarketDataDao implements CrudRepository<IexQuote,String> {
 
     }
 
-
-    @Override
-    public boolean existsById(String s) {
-        return false;
-    }
-
-    @Override
-    public Iterable<IexQuote> findAll() {
-        return null;
-    }
-
     @Override
     public Iterable<IexQuote> findAllById(Iterable<String> tickers) {
         int tickerCount = 0;
@@ -104,22 +89,32 @@ public class MarketDataDao implements CrudRepository<IexQuote,String> {
         JSONObject jsonObject = new JSONObject(response.get());
         ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         IexQuote quote;
-        for (String ticker : tickers){
+        for (String ticker : tickers) {
 
             try {
                 String stringQuote = jsonObject.getJSONObject(ticker).getJSONObject("quote").toString();
                 quote = mapper.readValue(stringQuote, IexQuote.class);
 
-            }catch (IOException e){
+            } catch (IOException e) {
                 throw new RuntimeException("Cannot convert JSON to Iexquote object.");
-            }
-            catch(JSONException e){
+            } catch (JSONException e) {
                 throw new IllegalArgumentException("Ticker not found");
             }
             quotes.add(quote);
         }
 
         return quotes;
+    }
+
+
+    @Override
+    public boolean existsById(String s) {
+        return false;
+    }
+
+    @Override
+    public Iterable<IexQuote> findAll() {
+        return null;
     }
 
 
@@ -147,8 +142,10 @@ public class MarketDataDao implements CrudRepository<IexQuote,String> {
     public void deleteAll() {
 
     }
+
     /**
      * Execute a get and return http entity/body as a string
+     *
      * @param url of resource
      * @return http response body
      * @throws DataRetrievalFailureException if fail
@@ -173,11 +170,13 @@ public class MarketDataDao implements CrudRepository<IexQuote,String> {
         }
 
     }
+
     /**
      * Borrow a Http client form httpClientConnectionManager
+     *
      * @return httpClient
      */
-    private CloseableHttpClient getHttpClient(){
+    private CloseableHttpClient getHttpClient() {
         return HttpClients.custom()
                 .setConnectionManager(httpClientConnectionManager)
                 .setConnectionManagerShared(true)

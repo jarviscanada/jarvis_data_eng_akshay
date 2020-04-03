@@ -1,13 +1,9 @@
 package ca.jrvs.apps.trading.service;
 
-import static org.junit.Assert.*;
-
 import ca.jrvs.apps.trading.TestConfig;
 import ca.jrvs.apps.trading.dao.QuoteDao;
 import ca.jrvs.apps.trading.model.domain.IexQuote;
 import ca.jrvs.apps.trading.model.domain.Quote;
-import java.util.ArrayList;
-import java.util.List;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -16,6 +12,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.Assert.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = {TestConfig.class})
@@ -64,7 +65,7 @@ public class QuoteServiceIntTest {
     }
 
     @Test
-    public void saveQuotes(){
+    public void saveQuotes() {
         List<String> tickers = new ArrayList<>();
         tickers.add("AAPL");
         tickers.add("AMZN");
@@ -74,16 +75,11 @@ public class QuoteServiceIntTest {
     }
 
     @Test
-    public void saveQuote(){
+    public void saveQuote() {
         quoteService.saveQuote(savedQuote);
         assertEquals(2, quoteDao.count());
     }
 
-    @Test
-    public void findAllQuotes(){
-        List<Quote> quotes = quoteService.findAllQuotes();
-        assertEquals(1, quoteDao.count());
-    }
 
     @After
     public void cleanup() throws Exception {

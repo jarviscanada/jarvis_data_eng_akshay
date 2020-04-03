@@ -1,10 +1,6 @@
 package ca.jrvs.apps.trading.dao;
 
 import ca.jrvs.apps.trading.model.domain.Quote;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import javax.sql.DataSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +16,11 @@ import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
+import javax.sql.DataSource;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
 @Repository
 public class QuoteDao implements CrudRepository<Quote, String> {
 
@@ -31,16 +32,16 @@ public class QuoteDao implements CrudRepository<Quote, String> {
     private SimpleJdbcInsert simpleJdbcInsert;
 
     @Autowired
-    public QuoteDao(DataSource dataSource){
+    public QuoteDao(DataSource dataSource) {
         setJdbcTemplate(new JdbcTemplate(dataSource));
         setSimpleJdbcInsert(new SimpleJdbcInsert(dataSource).withTableName(TABLE_NAME));
     }
 
     @Override
     public Quote save(Quote quote) {
-        if (existsById(quote.getTicker())){
+        if (existsById(quote.getTicker())) {
             int updateRowNum = updateOne(quote);
-            if (updateRowNum != 1){
+            if (updateRowNum != 1) {
                 throw new DataRetrievalFailureException("Unable to update quote.");
             }
         } else {
@@ -49,7 +50,7 @@ public class QuoteDao implements CrudRepository<Quote, String> {
         return quote;
     }
 
-    private void addOne(Quote quote){
+    private void addOne(Quote quote) {
         SqlParameterSource parameterSource = new BeanPropertySqlParameterSource(quote);
         int rowNo = getSimpleJdbcInsert().execute(parameterSource);
         if (rowNo != 1) {
@@ -57,24 +58,24 @@ public class QuoteDao implements CrudRepository<Quote, String> {
         }
     }
 
-    private int updateOne(Quote quote){
+    private int updateOne(Quote quote) {
         String updateSQL = "UPDATE quote SET last_price=?, bid_price=?, bid_size=?, "
                 + "ask_price=?, ask_size=? WHERE ticker=?";
         return getJdbcTemplate().update(updateSQL, makeUpdateValues(quote));
     }
 
-    private Object[] makeUpdateValues(Quote quote){
+    private Object[] makeUpdateValues(Quote quote) {
         return new Object[]{quote.getLastPrice(), quote.getBidPrice(), quote.getBidSize(), quote.getAskPrice(),
-                quote.getAskSize(),quote.getTicker()};
+                quote.getAskSize(), quote.getTicker()};
     }
 
     @Override
     public <S extends Quote> List<S> saveAll(Iterable<S> quotes) {
-        List<S> quotesOut = new ArrayList<>();
+        List<S> quotesList = new ArrayList<>();
         for (Quote q : quotes) {
-            quotesOut.add((S) save(q));
+            quotesList.add((S) save(q));
         }
-        return quotesOut;
+        return quotesList;
     }
 
     @Override
@@ -97,32 +98,32 @@ public class QuoteDao implements CrudRepository<Quote, String> {
 
     @Override
     public boolean existsById(String ticker) {
-        long count;
+        long numberOfRecords;
         String countSql = "SELECT COUNT(*) FROM " + TABLE_NAME +
                 " WHERE ticker='" + ticker.toUpperCase() + "'";
         try {
-            count = getJdbcTemplate().queryForObject(countSql, Long.class);
-        } catch (NullPointerException e){
-            count = 0;
+            numberOfRecords = getJdbcTemplate().queryForObject(countSql, Long.class);
+        } catch (NullPointerException e) {
+            numberOfRecords = 0;
         }
-        return count != 0;
+        return numberOfRecords != 0;
     }
 
     @Override
     public List<Quote> findAll() throws DataAccessException {
-        String selectSql = "SELECT * FROM " + TABLE_NAME;
+        String sql = "SELECT * FROM " + TABLE_NAME;
         return getJdbcTemplate()
-                .query(selectSql, BeanPropertyRowMapper.newInstance(Quote.class));
+                .query(sql, BeanPropertyRowMapper.newInstance(Quote.class));
     }
 
 
     @Override
     public long count() {
         long count;
-        String countSql = "SELECT COUNT(*) FROM " + TABLE_NAME;
+        String sql = "SELECT COUNT(*) FROM " + TABLE_NAME;
         try {
-            count = getJdbcTemplate().queryForObject(countSql, Long.class);
-        } catch (NullPointerException e){
+            count = getJdbcTemplate().queryForObject(sql, Long.class);
+        } catch (NullPointerException e) {
             count = 0;
         }
         return count;
@@ -130,8 +131,8 @@ public class QuoteDao implements CrudRepository<Quote, String> {
 
     @Override
     public void deleteById(String ticker) {
-        String deleteSql = "DELETE FROM " + TABLE_NAME + " WHERE ticker=?";
-        getJdbcTemplate().update(deleteSql, ticker);
+        String sql = "DELETE FROM " + TABLE_NAME + " WHERE ticker=?";
+        getJdbcTemplate().update(sql, ticker);
     }
 
     @Override
@@ -146,8 +147,8 @@ public class QuoteDao implements CrudRepository<Quote, String> {
 
     @Override
     public void deleteAll() {
-        String deleteSql = "DELETE FROM " + TABLE_NAME;
-        getJdbcTemplate().update(deleteSql);
+        String sql = "DELETE FROM " + TABLE_NAME;
+        getJdbcTemplate().update(sql);
     }
 
 
