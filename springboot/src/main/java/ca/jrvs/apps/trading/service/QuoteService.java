@@ -86,4 +86,8 @@ public class QuoteService {
         return marketDataDao.findById(ticker)
                 .orElseThrow(() -> new IllegalArgumentException("IEX Data could not be retrieved for " + ticker));
     }
+
+    public List<Quote> findAllQuotes() {
+        return quoteDao.findAll();
+    }
 }
