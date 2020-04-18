@@ -1,3 +1,5 @@
 intellij-java-google-style.xml
 **/target/
 **/.idea
+api-docs.json
+trading.iml
