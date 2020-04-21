@@ -75,6 +75,18 @@ public abstract class JdbcCrudDao<T extends Entity<Integer>> implements CrudRepo
         return entity;
     }
 
+    public List<T> findWithSpecificColumn(Integer id, String column){
+        List<T> entityOut = new ArrayList<>();
+        String selectSql = "SELECT * FROM " + getTableName() + " WHERE " + column + "=?";
+        try {
+            entityOut = getJdbcTemplate().
+                    query(selectSql, BeanPropertyRowMapper.newInstance(getEntityClass()), id);
+        } catch (IncorrectResultSizeDataAccessException e ){
+            logger.debug("Can't find column with id: " + id, e);
+        }
+        return entityOut;
+    }
+
     @Override
     public boolean existsById(Integer id){
         if (id == null){return false;}

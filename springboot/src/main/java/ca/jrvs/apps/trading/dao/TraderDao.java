@@ -57,16 +57,5 @@ public class TraderDao extends JdbcCrudDao<Trader>{
     public int updateOne(Trader entity) {
         throw new UnsupportedOperationException("Not implemented");
     }
-    @Override
-    public void delete(Trader entity) {
-        throw new UnsupportedOperationException("Not implemented...");
-    }
-
-
-    @Override
-    public void deleteAll() {
-        throw new UnsupportedOperationException("Not implemented...");
-    }
-
 
 }
