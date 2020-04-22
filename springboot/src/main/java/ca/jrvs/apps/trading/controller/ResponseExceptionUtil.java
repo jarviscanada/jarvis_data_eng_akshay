@@ -7,16 +7,16 @@ import org.springframework.web.server.ResponseStatusException;
 
 public class ResponseExceptionUtil {
 
-    private static final Logger logger = LoggerFactory.getLogger(ResponseExceptionUtil.class);
+  private static final Logger logger = LoggerFactory.getLogger(ResponseExceptionUtil.class);
 
-    public static ResponseStatusException getResponseStatusException(Exception ex) {
-        if (ex instanceof IllegalArgumentException) {
-            logger.debug("Invalid input: ", ex);
-            return new ResponseStatusException(HttpStatus.BAD_REQUEST, ex.getMessage());
-        } else {
-            logger.error("Internal Error: ", ex);
-            return new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,
-                    "Internal Error: please contact admin.");
-        }
+  public static ResponseStatusException getResponseStatusException(Exception ex) {
+    if (ex instanceof IllegalArgumentException) {
+      logger.debug("Invalid input: ", ex);
+      return new ResponseStatusException(HttpStatus.BAD_REQUEST, ex.getMessage());
+    } else {
+      logger.error("Internal Error: ", ex);
+      return new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,
+          "Internal Error: please contact admin.");
     }
+  }
 }

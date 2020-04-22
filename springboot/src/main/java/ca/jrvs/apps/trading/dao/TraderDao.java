@@ -10,52 +10,53 @@ import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class TraderDao extends JdbcCrudDao<Trader>{
+public class TraderDao extends JdbcCrudDao<Trader> {
 
-    private static final Logger logger = LoggerFactory.getLogger(TraderDao.class);
+  private static final Logger logger = LoggerFactory.getLogger(TraderDao.class);
 
-    private final String TABLE_NAME = "trader";
-    private final String ID_COLUMN = "id";
+  private final String TABLE_NAME = "trader";
+  private final String ID_COLUMN = "id";
 
-    private JdbcTemplate jdbcTemplate;
-    private SimpleJdbcInsert simpleJdbcInsert;
+  private JdbcTemplate jdbcTemplate;
+  private SimpleJdbcInsert simpleJdbcInsert;
 
-    @Autowired
-    public TraderDao(DataSource dataSource){
-        this.jdbcTemplate=new JdbcTemplate(dataSource);
-        this.simpleJdbcInsert= new SimpleJdbcInsert(dataSource)
-                .withTableName(TABLE_NAME).usingGeneratedKeyColumns(ID_COLUMN);
-    }
-    @Override
-    public JdbcTemplate getJdbcTemplate() {
-        return jdbcTemplate;
-    }
+  @Autowired
+  public TraderDao(DataSource dataSource) {
+    this.jdbcTemplate = new JdbcTemplate(dataSource);
+    this.simpleJdbcInsert = new SimpleJdbcInsert(dataSource)
+        .withTableName(TABLE_NAME).usingGeneratedKeyColumns(ID_COLUMN);
+  }
 
-
-    @Override
-    public SimpleJdbcInsert getSimpleJdbcInsert() {
-        return simpleJdbcInsert;
-    }
+  @Override
+  public JdbcTemplate getJdbcTemplate() {
+    return jdbcTemplate;
+  }
 
 
-    @Override
-    public String getTableName() {
-        return TABLE_NAME;
-    }
+  @Override
+  public SimpleJdbcInsert getSimpleJdbcInsert() {
+    return simpleJdbcInsert;
+  }
 
-    @Override
-    public String getIdColumnName() {
-        return ID_COLUMN;
-    }
 
-    @Override
-    Class<Trader> getEntityClass() {
-        return Trader.class;
-    }
+  @Override
+  public String getTableName() {
+    return TABLE_NAME;
+  }
 
-    @Override
-    public int updateOne(Trader entity) {
-        throw new UnsupportedOperationException("Not implemented");
-    }
+  @Override
+  public String getIdColumnName() {
+    return ID_COLUMN;
+  }
+
+  @Override
+  Class<Trader> getEntityClass() {
+    return Trader.class;
+  }
+
+  @Override
+  public int updateOne(Trader entity) {
+    throw new UnsupportedOperationException("Not implemented");
+  }
 
 }
