@@ -29,7 +29,7 @@ public class OrderService {
 
   @Autowired
   public OrderService(AccountDao accountDao, SecurityOrderDao securityOrderDao,
-      QuoteDao quoteDao, PositionDao positionDao){
+      QuoteDao quoteDao, PositionDao positionDao) {
     this.accountDao = accountDao;
     this.securityOrderDao = securityOrderDao;
     this.quoteDao = quoteDao;
@@ -37,7 +37,7 @@ public class OrderService {
   }
 
 
-  public SecurityOrder executeMarketOrder(MarketOrderDto orderDto){
+  public SecurityOrder executeMarketOrder(MarketOrderDto orderDto) {
     String ticker = orderDto.getTicker().toUpperCase();
     Integer accountId = orderDto.getAccountId();
 
@@ -50,10 +50,10 @@ public class OrderService {
     securityOrder.setTicker(orderDto.getTicker());
     securityOrder.setAccountId(accountId);
 
-    if (orderDto.getSize() > 0){
+    if (orderDto.getSize() > 0) {
       securityOrder.setPrice(quote.getAskPrice());
       handleBuyMarketOrder(orderDto, securityOrder, account);
-    } else if (orderDto.getSize() < 0){
+    } else if (orderDto.getSize() < 0) {
       securityOrder.setPrice(quote.getBidPrice());
       handleSellMarketOrder(orderDto, securityOrder, account);
     } else {
@@ -65,9 +65,9 @@ public class OrderService {
 
 
   protected void handleBuyMarketOrder(MarketOrderDto marketOrderDto, SecurityOrder securityOrder,
-      Account account){
+      Account account) {
     Double cost = securityOrder.getPrice() * securityOrder.getSize();
-    if (cost > account.getAmount()){
+    if (cost > account.getAmount()) {
       throw new IllegalArgumentException("Insufficient funds to cover this purchase");
     }
     account.setAmount(account.getAmount() - cost);
@@ -78,27 +78,27 @@ public class OrderService {
 
 
   protected void handleSellMarketOrder(MarketOrderDto marketOrderDto, SecurityOrder securityOrder,
-      Account account){
+      Account account) {
     List<Position> positions = positionDao.findWithSpecificColumn(account.getId(), "account_id");
-    if (positions == null){
+    if (positions == null) {
       throw new IllegalArgumentException("There are no open positions in this account");
     }
-    for (Position p : positions){
-      if (p.getTicker() == marketOrderDto.getTicker().toUpperCase()){
-        if (p.getPosition() > -marketOrderDto.getSize()){
-          account.setAmount(account.getAmount() + securityOrder.getPrice() * securityOrder.getSize());
+    for (Position p : positions) {
+      if (p.getTicker() == marketOrderDto.getTicker().toUpperCase()) {
+        if (p.getPosition() > -marketOrderDto.getSize()) {
+          account
+              .setAmount(account.getAmount() + securityOrder.getPrice() * securityOrder.getSize());
           securityOrder.setStatus("FILLED");
           accountDao.save(account);
           securityOrder.setId(securityOrderDao.save(securityOrder).getId());
-        }
-        else {
+        } else {
           throw new IllegalArgumentException("The order size is larger than the current position.");
         }
+      } else {
+        throw new IllegalArgumentException(
+            "You do not currently own any: " + marketOrderDto.getTicker());
       }
-    else{
-      throw new IllegalArgumentException("You do not currently own any: " + marketOrderDto.getTicker());
-    }
 
+    }
   }
-}
 }
