@@ -140,8 +140,9 @@ First, the docker daemon is run. Then there are two Dockerfiles, under `./spring
 
 
 # Improvements
--Provide API access for more order types, such as stop and limit orders
--Increased documentation and code comments
--Add authentication 
--Add dashboard controller
--Add a cron job to update our quote database from IEX cloud
+*Provide API access for more order types, such as stop and limit orders  
+*Increased documentation and code comments  
+*Add authentication   
+*Add dashboard controller  
+*Add a cron job to update our quote database from IEX cloud  
+
