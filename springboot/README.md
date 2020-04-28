@@ -132,9 +132,16 @@ __POST__ `/order/marketOrder`
 
 
 # Docker Deployment
-- docker diagram including images, containers, network, and docker hub
-e.g. https://www.notion.so/jarviscanada/Dockerize-Trading-App-fc8c8f4167ad46089099fd0d31e3855d#6f8912f9438e4e61b91fe57f8ef896e0
-- describe each image in details (e.g. how psql initialize tables)
+This diagram shows how Docker is used with this application
+![alt text](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/cf384fac-668a-460c-9793-eb0cc7863ca2/Trading_App_Docker_Arch_%283%29.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAT73L2G45O3KS52Y5%2F20200428%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20200428T191252Z&X-Amz-Expires=86400&X-Amz-Signature=2dd118fbb741fdad5ccbc2569b7ca267bd1ed182aeb42ca69571326d862f5f82&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Trading_App_Docker_Arch_%283%29.jpg%22)
+
+First, the docker daemon is run. Then there are two Dockerfiles, under `./springboot/psql/` directory and `./springboot/` directory. These are used to create `trading-psql` and `trading-app` images. For the first image `postgres:9.6-alpine` used as a base image and an SQL script is run that creates four PostgreSQL tables. Then a network called `trading-net` is created which birdges communication between the two containers. From these images, two containers are created: `trading-psql-dev` and `trading-app-dev`
+
+
 
 # Improvements
--
+-Provide API access for more order types, such as stop and limit orders
+-Increased documentation and code comments
+-Add authentication 
+-Add dashboard controller
+-Add a cron job to update our quote database from IEX cloud
