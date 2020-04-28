@@ -85,7 +85,7 @@ The diagram below shows the 3 tiers of the application: client tier, application
  
    - *DAO layer*: This layer is used to communicate with external sources including databases or other APIs. The DAO has a  responsibility to insert, find, update or delete rows in the PSQL database. Moreover, it will also be able to pull market data from the IEX cloud. DAO layer ensures that the service layer is responsible only for business logic and not for communication with external sources. This provides the separation of concerns that make API more robust and scalable.
    
-   - *Web Servlet*: The webservlet provided by the Springboot framework is used to map HTTP requets from the client to the controller.
+  - *Web Servlet*: The webservlet provided by the Springboot framework is used to map HTTP requets from the client to the controller.
 
 
 # REST API Usage
@@ -94,10 +94,20 @@ Swagger is an open-source software framework backed by a large ecosystem of tool
 ![Diagram](swaggerscreenshot.png)
 
 ## Quote Controller
-- High-level description for this controller. Where is market data coming from (IEX) and how did you cache the quote data (PSQL). Briefly talk about data from within your app
-- briefly explain each endpoint
-  e.g.
-  - GET `/quote/dailyList`: list all securities that are available to trading in this trading system blah..blah..
+
+  - GET `/quote/dailyList`: list all securities that are currently stored in the database. 
+  
+__GET__ `/quote/iex/ticker/{ticker}`
+- This endpoint will get the most recent market data using the latest IEX Cloud market information.
+
+__POST__ `/quote/tickerID/{tickerId}`
+- This endpoint will get the most recent market data using the latest IEX Cloud market information and save it to the database.
+
+__PUT__ `/quote/iexMarketData`
+- This endpoint will pull the most recent market data from the IEX cloud for every quote that exists in the database. It will only update the quotes that are currently in the database instead of creating new ones.
+
+__PUT__ `/quote/update` Update a particular quote.
+
 ## Trader Controller
 - High-level description for trader controller (e.g. it can manage trader and account information. it can deposit and withdraw fund from a given account)
 - briefly explain each endpoint
