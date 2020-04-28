@@ -109,13 +109,26 @@ __PUT__ `/quote/iexMarketData`
 __PUT__ `/quote/update` Update a particular quote.
 
 ## Trader Controller
-- High-level description for trader controller (e.g. it can manage trader and account information. it can deposit and withdraw fund from a given account)
-- briefly explain each endpoint
-##Order Controller
-- High-level description for this controller.
-- briefly explain each endpoint
-## App controller
-- briefly explain each endpoint
+In this endpoint, user input is parsed and used to create new trading accounts, make deposits or withdrawals and delete trading accounts.
+
+__DELETE__ `/trader/traderId/{traderId}`
+- This endpoint will delete a trader and the account associated with that trader by the given id. If the fund balance is not 0 or this trader is still holding securities, it will return an exception.
+
+__POST__ `/trader`
+- This endpoint will use the trader information in the HTTP body to create a trader and an associated account. All fields except the ID field should not be null. The user gets back a TraderAccountView which contains both trader record and account record for the newly created trader.
+
+__POST__`/trader/firstname/{firstname}/lastname/{lastname}/dob/{dob}/country/{country}/email/{email}`
+- This endpoint will do the same thing as the above endpoint. However, the information of the trader is included in the endpoint URL instead of the HTTP request header. A default balance of $0 is created in the associated account.
+
+__PUT__`/trader/deposit/traderId/{traderId}/amount/{amount}`
+- This endpoint will deposit the specified amount of funds into the account specified by traderID and it will return the new account object.
+
+__PUT__`/trader/withdraw/traderId/{traderId}/amount/{amount}`
+- This endpoint will deposit the specified amount of funds into the account specified by traderID and it will return the new account object.
+
+## Order Controller
+__POST__ `/order/marketOrder`
+- This endpoint will submit a market order if there are sufficient funds or security, otherwise a bad HTTP status code will be returned. If the execution of the market order succeeds, it will return the executed security order.
 
 
 # Docker Deployment
