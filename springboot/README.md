@@ -22,6 +22,7 @@ is deployed using Docker.
 - Try trading-app with SwaggerUI (screenshot)
 
 # Architecture
+![Diagram](diagram.png)
 - Draw a component diagram which contains controllers, services, DAOs, psql, IEX Cloud, WebServlet/Tomcat, HTTP client, and SpringBoot. 
 - briefly explain the following components and services (3-5 sentences for each)
   - Controller layer (e.g. handles user requests....)
