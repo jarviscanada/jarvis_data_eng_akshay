@@ -3,3 +3,12 @@ intellij-java-google-style.xml
 **/.idea
 api-docs.json
 trading.iml
+target/
+*.class
+*.jar
+*.war
+*.ear
+*.logs
+*.iml
+.idea/
+.eclipse
